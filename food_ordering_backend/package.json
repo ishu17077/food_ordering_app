@@ -4,7 +4,7 @@
   "description": "food app backend",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --loader=ts-node/esm --import=tsx --watch-extensions ts 'test/**/*.spec.ts' --timeout 5000"
+    "test": "mocha --loader=ts-node/esm --import=tsx --watch-extensions ts 'test/**/*.spec.*' --timeout 5000"
   },
   "author": "",
   "license": "ISC",
@@ -12,11 +12,16 @@
     "@types/chai": "^5.2.2",
     "@types/chai-as-promised": "^8.0.2",
     "@types/mocha": "^10.0.10",
+    "@types/mongoose": "^5.11.97",
     "chai": "^5.2.0",
     "chai-as-promised": "^8.0.1",
     "mocha": "^11.7.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.0.1",
+    "mongoose": "^8.16.1"
   }
 }
