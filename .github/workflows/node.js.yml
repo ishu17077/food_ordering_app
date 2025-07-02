@@ -3,6 +3,8 @@
 
 name: Server Tests
 
+
+
 on:
   push:
     branches: [ "main" ]
@@ -13,22 +15,17 @@ jobs:
   build:
      runs-on: ubuntu-latest
      services:
-      mongo:
-        image: mongo:8.0.11-noble
-        healthcheck:
-          test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
-
-
-        env:
-          MONGO_INITDB_DATABASE: food_ordering
-        ports:
-          - 27017:27017
-        # options: >-
-        #   --health-cmd mongo
-        #   --health-interval 10s
-        #   --health-timeout 5s
-        #   --health-retries 10
-        
+       mongo:
+         image: mongo
+         ports:
+           - 27017:27017
+         env:
+           MONGO_INITDB_DATABASE: food_ordering
+         options: >-
+           --health-cmd="echo 'db.runCommand(\"ping\").ok' | mongo localhost:27017/food_ordering --quiet"
+           --health-interval=10s
+           --health-timeout=10s
+           --health-retries=5
 
      strategy:
       matrix:
