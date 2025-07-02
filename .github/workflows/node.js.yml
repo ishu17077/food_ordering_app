@@ -14,9 +14,11 @@ jobs:
      runs-on: ubuntu-latest
      services:
       mongo:
-        image: mongo:8.0.10
-        env:
-          MONGO_INITDB_DATABASE: food_ordering
+        image: mongo:8.0.11-noble
+        # env:
+        #   MONGO_INITDB_ROOT_USERNAME: admin
+        #   MONGO_INITDB_ROOT_PASSWORD: admin
+        #   MONGO_INITDB_DATABASE: food_ordering
         ports:
           - 27017:27017
         options: >-
@@ -41,18 +43,18 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path: ./food_ordering_backend/package-lock.json
-      - name: Add MongoDB user
-        run: |
-          mongosh --host localhost --port 27017 <<EOF
-          use food_ordering
-          db.createUser({
-            email: "test@mail.orgy",
-            password: "passOrgy",
-            auth_type: "email",
-            "name": "OrgyUser",
-            roles: [ { role: "readWrite", db: "food_ordering" } ]
-          })
-          EOF
+      # - name: Add MongoDB user
+      #   run: |
+      #     mongosh --host localhost --port 27017 <<EOF
+      #     use food_ordering
+      #     db.createUser({
+      #       email: "test@mail.orgy",
+      #       password: "passOrgy",
+      #       auth_type: "email",
+      #       "name": "OrgyUser",
+      #       roles: [ { role: "readWrite", db: "food_ordering" } ]
+      #     })
+      #     EOF
       # Change Directory
       - name: Change to server directory
         run: cd ./food_ordering_backend && pwd
