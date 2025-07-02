@@ -15,19 +15,20 @@ jobs:
      services:
       mongo:
         image: mongo:8.0.11-noble
+        healthcheck:
+          test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+
+
         env:
-          MONGO_INITDB_ROOT_USERNAME: admin
-          MONGO_INITDB_ROOT_PASSWORD: admin
           MONGO_INITDB_DATABASE: food_ordering
         ports:
           - 27017:27017
-        options: >-
-          --health-cmd mongo
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
+        # options: >-
+        #   --health-cmd mongo
+        #   --health-interval 10s
+        #   --health-timeout 5s
+        #   --health-retries 10
         
-
 
      strategy:
       matrix:
