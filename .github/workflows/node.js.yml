@@ -15,10 +15,10 @@ jobs:
      services:
       mongo:
         image: mongo:8.0.11-noble
-        # env:
-        #   MONGO_INITDB_ROOT_USERNAME: admin
-        #   MONGO_INITDB_ROOT_PASSWORD: admin
-        #   MONGO_INITDB_DATABASE: food_ordering
+        env:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: admin
+          MONGO_INITDB_DATABASE: food_ordering
         ports:
           - 27017:27017
         options: >-
