@@ -12,13 +12,13 @@ export default class FakeRepository implements IAuthRepository {
       email: "ishuLegend@suckyCompany.com",
       id: "1214",
       name: "Ishu Legend",
-      password: "5d41402abc4b2a76b9719d911017c592",
-      auth_type: "email"
+      password: "",
+      auth_type: "google"
 
    }]
    public async find(email: string): Promise<User> {
       const user = this.users.find((x) => x.email == email)
-      if (!user) throw Promise.reject("User not found!");
+      if (!user) throw new Error("User not found!");
       return new User(
          user?.id,
          user?.name,
