@@ -11,29 +11,26 @@ on:
   pull_request:
     branches: [ "main" ]
 
+
+
 jobs:
-  build:
-     runs-on: ubuntu-latest
-     services:
-       mongo:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mongo:
          image: mongo
          ports:
            - 27017:27017
          env:
            MONGO_INITDB_DATABASE: food_ordering
-         options: >-
-           --health-cmd="echo 'db.runCommand(\"ping\").ok' | mongo localhost:27017/food_ordering --quiet"
-           --health-interval=10s
-           --health-timeout=10s
-           --health-retries=5
+            
 
-     strategy:
+    strategy:
       matrix:
         node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-     steps:
-    
+    steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
