@@ -51,6 +51,7 @@ jobs:
       - name: Add a user in mongo db database
         run: |
           mongosh --host localhost --port 27017 <<EOF
+          diableTelemetry()
           use food_ordering
           db.getSiblingDB("food_ordering").getCollection("users").insertOne({
           email: "test@mail.orgy",
