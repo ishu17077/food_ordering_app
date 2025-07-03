@@ -38,18 +38,17 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path: ./food_ordering_backend/package-lock.json
-      # - name: Add MongoDB user
-      #   run: |
-      #     mongosh --host localhost --port 27017 <<EOF
-      #     use food_ordering
-      #     db.createUser({
-      #       email: "test@mail.orgy",
-      #       password: "passOrgy",
-      #       auth_type: "email",
-      #       "name": "OrgyUser",
-      #       roles: [ { role: "readWrite", db: "food_ordering" } ]
-      #     })
-      #     EOF
+      - name: Add a user in mongo db database
+        run: |
+          mongosh --host localhost --port 27017 <<EOF
+          use food_ordering
+          db.getSiblingDB("food_ordering").getCollection("users").insertOne({
+          email: "test@mail.orgy",
+          name: "OrgyUser",
+          password: "passOrgy",
+          auth_type: "email"
+          })
+          EOF
       # Change Directory
       - name: Change to server directory
         run: cd ./food_ordering_backend && pwd
