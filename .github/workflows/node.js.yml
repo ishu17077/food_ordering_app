@@ -61,7 +61,7 @@ jobs:
           EOF
       # Change Directory
       - name: Change to server directory
-        run: cd ./food_ordering_backend && pwd
+        run: cd ./food_ordering_backend
 
       # NPM Install packages
       - name: NPM install packages
