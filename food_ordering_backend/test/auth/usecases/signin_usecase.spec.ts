@@ -47,20 +47,20 @@ describe('SignInUseCase', () => {
          password: "1234"
       }
       //? assert
-      await expect(sut.execute(user.email, user.password)).to.be.rejectedWith("User not found!")
+      await expect(sut.execute(undefined, user.email, "email", user.password)).to.be.rejectedWith("Invalid email or password")
    })
 
    it("Should return a user id if email and passowrd are correct", async () => {
-      const id = await sut.execute(user0.email, user0.password);
+      const id = await sut.execute(undefined, user0.email, "email", user0.password);
       expect(id).to.be.equal(user0.id)
    })
    it("Should return a user id if auth_type is google without password", async () => {
-      const id = await sut.execute(user1.email, user1.password);
+      const id = await sut.execute(undefined, user1.email, "email", user1.password);
       expect(id).to.be.equal(user1.id)
    })
    it("Should return Error if password is incorrect", async () => {
       let id: Promise<string>
-      id = sut.execute(user0.email, 'sadsad')
-      await expect(id).to.be.rejectedWith("Invalid Email or Password")
+      id = sut.execute(undefined, user1.email, "email", 'efefefef')
+      await expect(id).to.be.rejectedWith("Invalid email or password")
    })
 })

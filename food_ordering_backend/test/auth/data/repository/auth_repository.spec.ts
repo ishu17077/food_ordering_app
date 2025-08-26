@@ -53,7 +53,7 @@ describe("AuthRepository", () => {
          name: "Test User",
       }
       //? Get
-      const result = await sut.add(user.name, user.email, user.password, user.auth_type)
+      const result = await sut.add(user.name, user.email, user.auth_type, user.password)
       //? check or assert
       expect(result).to.not.be.empty
       //? Delete the test user after test

@@ -3,7 +3,7 @@ export interface UserMongo extends mongoose.Document {
    auth_type: string,
    name: string,
    email: string,
-   password: string
+   password?: string
 }
 
 export const UserSchema = new mongoose.Schema({

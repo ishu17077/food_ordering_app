@@ -15,10 +15,17 @@ export default class FakeRepository implements IAuthRepository {
       password: "",
       auth_type: "google"
 
-   }]
+   }, {
+      id: "12333",
+      email: "test@gmail.com",
+      name: "testMail",
+      password: "",
+      auth_type: "google"
+   }
+   ]
    public async find(email: string): Promise<User> {
       const user = this.users.find((x) => x.email == email)
-      if (!user) throw new Error("User not found!");
+      if (!user) throw Error("User not found!");
       return new User(
          user?.id,
          user?.name,
@@ -30,6 +37,7 @@ export default class FakeRepository implements IAuthRepository {
    public async add(name: string, email: string, passwordHash: string, auth_type: string): Promise<string> {
       const max = 9999
       const min = 1000
+      //! + is a unary operator which convert any data type to number
       const id = (Math.floor(Math.random() * (+max - +min) + + min)).toString()
 
       this.users.push({
