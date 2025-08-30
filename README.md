@@ -1,16 +1,18 @@
 # food_ordering_app
 
-A new Flutter project.
+A Backend and frontend implementation of a food ordering app
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Compile and run backend of this project with
+```
+git clone https://github.com/ishu17077/food_ordering_app
+cd food_ordering_app/food_ordering_backend
+node i
+npx tsc run dev
+```
 
-A few resources to get you started if this is your first Flutter project:
+A few things to keep in mind:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- <span style="color: green;">Only auth implemented.</span>
+- <span style="color: red;">Lacks major features</span>
