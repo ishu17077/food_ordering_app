@@ -16,13 +16,12 @@ export default class AuthRepository implements IAuthRepository {
    }
    public async add(name: string, email: string, auth_type: string, passwordHash?: string): Promise<string> {
       email = email.toLowerCase();
+      const userModel = this.client.model<UserMongo>("user", UserSchema)
       try {
-         const userModel = this.client.model<UserMongo>("user", UserSchema)
-         const user = await userModel.findOne({ email: email })
+         const user = await userModel.findOne({ email: email }).catch((_) => null)
          if (user) {
             return Promise.reject("User already Exist!")
          }
-
          const savedUser = new userModel({
             auth_type: auth_type,
             email: email,
@@ -30,9 +29,10 @@ export default class AuthRepository implements IAuthRepository {
          })
          if (passwordHash) { savedUser.password = passwordHash }
          await savedUser.save()
+         console.log(savedUser.id)
          return savedUser.id;
       } catch (error) {
-         return Promise.reject("Error: User cannot be created");
+         return Promise.reject("User cannot be created!");
       }
    }
 }

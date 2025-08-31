@@ -16,7 +16,7 @@ export default class JwtTokenService implements ITokenervice {
             const decoded = jwt.verify(token, this.privateKey);
             return decoded;
         } catch (err) {
-            return "Invalid Token";
+            return "";
         }
     }
 

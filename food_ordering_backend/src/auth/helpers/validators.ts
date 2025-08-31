@@ -26,6 +26,14 @@ export const signInValidationRules = () => {
     ]
 }
 
+
+export const signOutValidationRules = () => {
+
+    return [
+        body("authorization").notEmpty(),
+    ]
+}
+
 export const validate = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req)
 
@@ -40,7 +48,7 @@ export const validate = (req: Request, res: Response, next: NextFunction) => {
            *?  Example: If err.type is "email" and err.msg is "Invalid Email",
            *? then { [err.type]: err.msg } becomes { email: "Invalid Email" }.
          */
-        .map((err) => extractedErrors.push({ [err.type]: err.msg }))
+        .map((err: { type: any; msg: any }) => extractedErrors.push({ [err.type]: err.msg }))
 
     return res.status(422).json({ errors: extractedErrors })
 }
