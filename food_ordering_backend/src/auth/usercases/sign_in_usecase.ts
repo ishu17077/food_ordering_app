@@ -13,7 +13,7 @@ export default class SignInUseCase {
    private async emailLogic(email: string, password: string): Promise<string> {
       const user = await this.authRepository.find(email).catch((_) => null);
       if (!user || !(await this.passwordService.compare(password, user.password))) {
-         return Promise.reject("Invalid email or password");
+         return Promise.reject("Invalid Email or Password");
       }
       return user.id;
    }

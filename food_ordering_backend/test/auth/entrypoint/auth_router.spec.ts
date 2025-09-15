@@ -8,6 +8,8 @@ import FakePasswordService from "../helpers/fake_password_service"
 import AuthRouter from "../../../src/auth/entrypoint/routers/auth_router"
 import { expect } from "chai"
 import { auth } from "firebase-admin"
+import TokenValidator from "../helpers/token_validator"
+import RedisTokenStore from "../data/services/redis_token_store"
 
 
 describe("AuthRouter", () => {
@@ -32,6 +34,7 @@ describe("AuthRouter", () => {
         repository = new FakeRepository()
         let tokenService = new JwtTokenService("privateKey")
         let passwordService = new FakePasswordService()
+     
 
         app = express()
         app.use(express.json())

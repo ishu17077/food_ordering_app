@@ -33,14 +33,13 @@ export const signOutValidationRules = () => {
         body("authorization").notEmpty(),
     ]
 }
-
 export const validate = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req)
 
     if (errors.isEmpty()) {
         return next()
     }
-    const extractedErrors: any[] = []
+    let extractedError: string = "";
     errors.array({ onlyFirstError: true })
         /**
          *? err.type is a variable containing a string (like "field" or "param").
@@ -48,7 +47,9 @@ export const validate = (req: Request, res: Response, next: NextFunction) => {
            *?  Example: If err.type is "email" and err.msg is "Invalid Email",
            *? then { [err.type]: err.msg } becomes { email: "Invalid Email" }.
          */
-        .map((err: { type: any; msg: any }) => extractedErrors.push({ [err.type]: err.msg }))
+        .map((err: { type: any; msg: any }) => {
+            extractedError = err.msg
+        })
 
-    return res.status(422).json({ errors: extractedErrors })
+    return res.status(422).json({ error: extractedError })
 }

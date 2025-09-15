@@ -1,4 +1,4 @@
-import 'package:async/src/result/result.dart';
+import 'package:async/async.dart';
 import 'package:auth/src/domain/auth_service_contract.dart';
 import 'package:auth/src/domain/credential.dart';
 import 'package:auth/src/domain/token.dart';
@@ -7,7 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleAuth implements IAuthService {
   final IAuthApi _authApi;
-  GoogleSignIn _googleSignIn;
+  final GoogleSignIn _googleSignIn;
   GoogleSignInAccount? _currentUser;
 
   GoogleAuth(this._authApi, [GoogleSignIn? googleSignIn])
@@ -32,8 +32,13 @@ class GoogleAuth implements IAuthService {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<Result<bool>> signOut(Token token) async {
+    Result<bool> res = await _authApi.signOut(token);
+    if (res.isError) {
+      return res;
+    }
     await _googleSignIn.disconnect();
+    return res;
   }
 
   Future<void> _handleGoogleSignIn() async {

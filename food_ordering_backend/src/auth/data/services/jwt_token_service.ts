@@ -7,7 +7,7 @@ export default class JwtTokenService implements ITokenervice {
     encode(payload: object | string): string | object {
         const token = jwt.sign(payload, this.privateKey, {
             issuer: "Srayash_Technologies",
-            expiresIn: "1h",
+            expiresIn: "6h",
         });
         return token;
     }

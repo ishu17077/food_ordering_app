@@ -54,10 +54,16 @@ jobs:
           use food_ordering
           db.getSiblingDB("food_ordering").getCollection("users").insertOne({
           email: "test@mail.orgy",
-          name: "OrgyUser",
+          name: "0rgyUser",
           password: "passOrgy",
           auth_type: "email"
-          })
+          });
+          db.getSiblingDB("food_ordering").getCollection("users").insertOne({
+          email: "test@gmail.orgy",
+          name: "0rgyUser",
+          password: null,
+          auth_type: "google"
+          });
           EOF
       # Change Directory
       - name: Change to server directory

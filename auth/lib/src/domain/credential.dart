@@ -1,10 +1,10 @@
 enum AuthType { email, google }
 
-extension EnumParsing on AuthType {
-  String value() => this.toString();
+extension AuthEnumParsing on AuthType {
+  String value() => this.name;
 
   static AuthType fromString(String value) {
-    return AuthType.values.firstWhere((element) => element.toString() == value);
+    return AuthType.values.firstWhere((element) => element.name == value);
   }
 }
 
@@ -31,4 +31,8 @@ class Credential {
     'password': password,
     "auth_type": authType.value(),
   };
+
+  // factory Credential.fromJSON(Map<String, dynamic> credMap) {
+  //   return Credential(email: email, authType: authType);
+  // }
 }

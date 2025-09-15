@@ -4,6 +4,7 @@
   "description": "food app backend",
   "main": "index.js",
   "scripts": {
+    "dev": "npx tsx ./src/app.ts",
     "test": "mocha --loader=ts-node/esm --import=tsx --watch-extensions ts 'test/**/*.spec.*' --timeout 5000"
   },
   "author": "",

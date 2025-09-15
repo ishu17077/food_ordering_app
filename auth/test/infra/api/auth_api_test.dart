@@ -1,23 +1,24 @@
-import 'package:async/async.dart';
+import 'package:async/async.dart' show ErrorResult;
 import 'package:auth/src/domain/credential.dart';
 import 'package:auth/src/infra/api/auth_api.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:http/http.dart' as http;
+
 import 'auth_api_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<http.Client>()])
-// class MockClient extends Mock implements http.Client {}
 var httpcom = 'http://8080.com';
+
 void main() {
-  late MockClient client;
+  late MockClient fakeClient;
   late AuthApi sut;
-
+  // String baseUrl = 'http://localhost:3000';
   setUp(() {
-    client = MockClient();
+    fakeClient = MockClient();
 
-    sut = AuthApi(httpcom, client);
+    sut = AuthApi(httpcom, fakeClient);
   });
 
   group('signIn with Email', () {
@@ -28,7 +29,11 @@ void main() {
     );
     test("Should return error when status code is not 200", () async {
       when(
-        client.post(any, body: anyNamed("body")),
+        fakeClient.post(
+          any,
+          body: anyNamed("body"),
+          headers: anyNamed("headers"),
+        ),
       ).thenAnswer((_) async => http.Response('{}', 400));
 
       var result = await sut.signIn(credential);
@@ -38,7 +43,11 @@ void main() {
       "Should return error when status code is 200 but the credentials token could not be supplied",
       () async {
         when(
-          client.post(any, body: anyNamed("body")),
+          fakeClient.post(
+            any,
+            body: anyNamed("body"),
+            headers: anyNamed("headers"),
+          ),
         ).thenAnswer((_) async => http.Response('{}', 200));
 
         var result = await sut.signIn(credential);
@@ -47,7 +56,13 @@ void main() {
     );
     test("Should return token string on successful auth", () async {
       var tokenString = 'dadasdsadasadasdsadas';
-      when(client.post(any, body: anyNamed("body"))).thenAnswer((_) async {
+      when(
+        fakeClient.post(
+          any,
+          body: anyNamed("body"),
+          headers: anyNamed("headers"),
+        ),
+      ).thenAnswer((_) async {
         return http.Response("{\"auth_token\": \"$tokenString\"}", 200);
       });
 
